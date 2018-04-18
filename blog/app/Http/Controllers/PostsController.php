@@ -48,7 +48,7 @@ class PostsController extends Controller
       
         $post = Post::where('id', '=', $id)->get()->first();
        
-         dd($this->counter);
+         
         return view('posts.show',[
             
             'post' => $post,

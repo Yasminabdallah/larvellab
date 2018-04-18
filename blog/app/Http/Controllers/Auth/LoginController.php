@@ -28,6 +28,7 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
+    
 
     /**
      * Create a new controller instance.
@@ -53,11 +54,11 @@ class LoginController extends Controller
     {
         $user = Socialite::driver('github')->user();
         //dd($user);
-        $authUser = $this->findOrCreateUser($user,'github');
+        $authUser = $this->findOrCreateUser($user);
         Auth::login($authUser, true);
         return redirect($this->redirectTo);
     }
-    public function findOrCreateUser($user, $provider)
+    public function findOrCreateUser($user)
     {
         $authUser = User::where('provider_id', $user->getId())->first();
         if ($authUser) {
@@ -66,7 +67,7 @@ class LoginController extends Controller
         return User::create([
             'name'     => $user->getNickname(),
             'email'    =>$user->getEmail(),
-            'provider' => $provider,
+            'provider' => "github",
             'provider_id' => $user->getId()
         ]);
     }
