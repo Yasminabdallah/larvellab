@@ -39,6 +39,10 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    public function guard()
+    {
+     return Auth::guard('socializer');
+    }
 
     public function redirectToProvider()
     {
@@ -53,22 +57,22 @@ class LoginController extends Controller
     public function handleProviderCallback()
     {
         $user = Socialite::driver('github')->user();
-        //dd($user);
+    
         $authUser = $this->findOrCreateUser($user);
         Auth::login($authUser, true);
         return redirect($this->redirectTo);
     }
     public function findOrCreateUser($user)
     {
-        $authUser = User::where('provider_id', $user->getId())->first();
+        $authUser = User::where('uid', $user->getId())->first();
         if ($authUser) {
             return $authUser;
         }
         return User::create([
             'name'     => $user->getNickname(),
             'email'    =>$user->getEmail(),
-            'provider' => "github",
-            'provider_id' => $user->getId()
+            'password'=>$user->getId(),
+            'uid' => $user->getId()
         ]);
     }
         

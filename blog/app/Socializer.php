@@ -1,25 +1,23 @@
 <?php
-
 namespace App;
-
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Passport\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class Socializer extends Authenticatable
 {
-    use Notifiable , HasApiTokens;
-
+    
+    use Notifiable;
+    protected $guard = 'socializer';
+    //use AuthenticableTrait;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'uid', 'password','email'
     ];
-    protected $dates = ['created_at'];
-
+  
     /**
      * The attributes that should be hidden for arrays.
      *

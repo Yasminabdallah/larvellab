@@ -28,7 +28,7 @@ Route::get('posts/{id}/edit','PostsController@edit')->middleware('auth');
 Route::put('posts/{post}','PostsController@update')->middleware('auth');
 
 Auth::routes();
-
+Route::get('/admin', 'SocializerController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('login/github', 'Auth\LoginController@redirectToProvider');
 Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');

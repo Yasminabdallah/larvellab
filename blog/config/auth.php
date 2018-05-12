@@ -40,7 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        
+        'socializer'  => [
+            'driver'  => 'session',
+            'provider' => 'socializers',
+          ],
 
         'api' => [
             'driver' => 'passport',
@@ -71,10 +74,10 @@ return [
            'model' => App\User::class,
         ],
      
-         ///'extrausers' => [
-           //'driver' => 'eloquent',
-           // 'moddel' => App\ExternalUser::class,
-        //],
+         'socializers' => [
+           'driver' => 'eloquent',
+            'moddel' => App\Socializer::class,
+        ],
     ],
 
     /*
@@ -98,6 +101,12 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+
     ],
 
 ];
